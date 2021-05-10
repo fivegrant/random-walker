@@ -1,9 +1,9 @@
-module Cipher where
+module App.Cipher where
 
 import Data.Maybe (isNothing, fromJust)
 import qualified Data.Map.Lazy as Map
 
-import Characters (characterRange, missingCharacter)
+import App.Characters (characterRange, missingCharacter)
 
 -- The list of characters that can be decoded.
 -- characterRange = ['a'..'z'] ++ ['A'..'Z'] ++ [' ', '?','.','!','-','/']

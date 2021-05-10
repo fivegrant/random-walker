@@ -1,4 +1,4 @@
-module Characters where
+module App.Characters where
 
 -- The list of characters that can be decoded.
 characterRange = ['a'..'z'] ++ ['A'..'Z'] ++ [' ', '?','.','!','-','/']

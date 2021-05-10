@@ -24,3 +24,4 @@ cabal.project.local~
 
 random-walker.nix
 result
+data

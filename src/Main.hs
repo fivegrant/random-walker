@@ -1,9 +1,9 @@
 module Main where
 
 import System.Environment
-import Cipher
-import Plausibility
-import qualified Characters
+import App.Cipher
+import App.Plausibility
+import qualified App.Characters as Characters
 
 main :: IO ()
 main = do
