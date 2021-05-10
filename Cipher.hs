@@ -1,11 +1,13 @@
-module Decrypt where
+module Cipher where
 
 import Data.Maybe (isNothing, fromJust)
 import qualified Data.Map.Lazy as Map
 
+import Characters (characterRange, missingCharacter)
+
 -- The list of characters that can be decoded.
-characterRange = ['a'..'z'] ++ ['A'..'Z'] ++ [' ', '?','.','!','-','/']
-missingCharacter = '\9608' -- unicode 'Full Block'
+-- characterRange = ['a'..'z'] ++ ['A'..'Z'] ++ [' ', '?','.','!','-','/']
+-- missingCharacter = '\9608' -- unicode 'Full Block'
 
 {-
  The Cipher is mapping from a character in the code space
@@ -19,6 +21,4 @@ decode character cipher
                 | otherwise = fromJust result
                 where result = Map.lookup character cipher
 
--- TODO: Implement
-plausibility :: Cipher -> Float
-plausibility _ = 0
+

@@ -18,6 +18,6 @@ executable random-walker
   main-is:               Main.hs
   -- other-modules:      
   -- other-extensions:
-  build-depends:       base, containers
+  build-depends:       base, containers, matrix
   -- hs-source-dirs:
   default-language:    Haskell2010
