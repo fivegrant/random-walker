@@ -5,10 +5,13 @@ import NLP.Tokenize
 
 import App.Characters (characterRange)
 
+type StateTransitions = Matrix.Matrix Float
+
 charAmount = length characterRange
 emptyTransitionMatrix = Matrix.zero charAmount charAmount
 
-occurrences :: Num a => [String] -> Matrix.Matrix a -> Matrix.Matrix a
+
+occurrences :: [String] -> StateTransitions -> StateTransitions
 occurrences corpus transition
                              | null corpus = transition 
                              | otherwise = transition +  reducedCorpus `occurrences` transition
