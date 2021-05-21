@@ -18,6 +18,6 @@ executable random-walker
   main-is:             Main.hs
   other-modules:       App.Characters App.Cipher App.Plausibility App.TransitionMatrix
   -- other-extensions:
-  build-depends:       base, containers, matrix, tokenize
+  build-depends:       base, containers, matrix, vector, tokenize
   hs-source-dirs:      src
   default-language:    Haskell2010
