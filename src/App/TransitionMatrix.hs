@@ -1,19 +1,21 @@
 module App.TransitionMatrix where
 
+import Data.Char (toLower)
 import qualified Data.Matrix as Matrix
 import qualified Data.Vector as Vector
 -- import NLP.Tokenize.String (tokenize)
 
 import App.Characters (characterRange, position)
 
-type StateTransitions = Matrix.Matrix Float
+type TransitionMatrix = Matrix.Matrix Float
+type StateTransitions = Int -> Int -> Float
 
 charAmount = length characterRange
 emptyTransitionMatrix = Matrix.zero charAmount charAmount
 
 
 moveKnownToBack :: String -> String
-moveKnownToBack corpus = if (head corpus) `elem` characterRange 
+moveKnownToBack corpus = if (toLower (head corpus)) `elem` characterRange 
                          then (tail corpus) ++ [head corpus]
 		         else tail corpus
 
@@ -22,7 +24,7 @@ clean corpus = iterate moveKnownToBack corpus !! (length corpus - 1)
 
 
 infix 7 +>
-(+>) :: (Char , Char) -> StateTransitions -> StateTransitions
+(+>) :: (Char , Char) -> TransitionMatrix -> TransitionMatrix
 (+>) characters transition 
                                | outOfScope = transition
                                | otherwise = Matrix.setElem (1 + (Matrix.getElem x y transition)) (x,y) transition  
@@ -31,7 +33,7 @@ infix 7 +>
 				     outOfScope = x == -1 || y == -1
 
 infix 7 `occurrences`
-occurrences :: String -> StateTransitions -> StateTransitions
+occurrences :: String -> TransitionMatrix -> TransitionMatrix
 occurrences corpus transition
                              | null corpus = transition 
                              | otherwise = (x, y) +> transition + reducedCorpus `occurrences` transition
@@ -39,12 +41,15 @@ occurrences corpus transition
 			           x = corpus !! 0
 				   y = corpus !! 1 
 
-probabilityInRow :: StateTransitions -> Int -> StateTransitions
+probabilityInRow :: TransitionMatrix -> Int -> TransitionMatrix
 probabilityInRow transition iteration 
                                      | iteration == Matrix.nrows transition = transition
 				     | otherwise = Matrix.mapRow getProbability iteration $ probabilityInRow transition (iteration + 1)
-				     where getProbability = (\_ x -> x / (Vector.sum (Matrix.getRow iteration transition)))
+				     where getProbability _ x = x / (Vector.sum (Matrix.getRow iteration transition))
 
-getTransition :: String -> StateTransitions
+getTransition :: String -> TransitionMatrix
 getTransition corpus = let counts = corpus `occurrences` emptyTransitionMatrix
                        in  probabilityInRow counts 0
+
+stateTransitions :: TransitionMatrix -> StateTransitions
+stateTransitions transition = (\ from to -> Matrix.getElem from to transition)
