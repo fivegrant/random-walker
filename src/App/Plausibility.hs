@@ -7,6 +7,7 @@ import App.Characters (position)
 plausibility :: Cipher -> StateTransitions -> String -> Float
 plausibility f m s
                   | length s <= 1 = 1
+                  | position (s !! 0) == -1 || position (s !! 1) == -1 = (plausibility f m (tail s))
                   | otherwise = (m (position (f (s !! 0))) (position (f (s !! 1)))) * (plausibility f m (tail s))
 
 evolve :: [(Char, Char)] -> StateTransitions -> String -> CipherMapping -> [Bool] -> Cipher

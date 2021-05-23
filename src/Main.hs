@@ -24,7 +24,6 @@ main = do
   writeFile "data/encrypted.txt" (h !> codedMessage)
   -}
   let iteration = 1000
-  --let trainingFile = "data/answer.txt"
   let trainingFile = "data/war-and-peace.txt"
   let encryptedFile = "data/encrypted.txt"
 

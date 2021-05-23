@@ -48,9 +48,9 @@ infix 7 `occurrences`
 occurrences :: String -> TransitionMatrix -> TransitionMatrix
 occurrences corpus transition
                              | length corpus <= 1 = transition 
-                             | x <=0 || y <=0 = transition + reducedCorpus `occurrences` transition
+                             | x <= 0 || y <= 0 = transition + (reducedCorpus `occurrences` transition)
                              | length corpus == 2 = pairMatrix
-                             | otherwise = pairMatrix + reducedCorpus `occurrences` transition
+                             | otherwise = pairMatrix + (reducedCorpus `occurrences` transition)
                              where reducedCorpus = tail corpus
                                    x = position (corpus !! 0) + 1
                                    y = position (corpus !! 1) + 1
@@ -67,4 +67,4 @@ getTransition corpus = let counts = corpus `occurrences` emptyTransitionMatrix
                        in  probabilityInRow counts 0
 
 stateTransitions :: TransitionMatrix -> StateTransitions
-stateTransitions transition = (\ from to -> Matrix.getElem from to transition)
+stateTransitions transition = (\ from to -> Matrix.getElem (from+1) (to+1) transition)

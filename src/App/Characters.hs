@@ -4,7 +4,7 @@ import Data.Maybe (isNothing, fromJust)
 import Data.List (elemIndex)
 
 -- The list of characters that can be decoded.
-characterRange = ['a'..'z'] ++ ['A'..'Z'] ++ [' ', '?','.','!','-','/',',','(',')']
+characterRange = ['a'..'z'] ++ [' ', '?','.','!','-','/',',','(',')']
 missingCharacter = '\9608' -- unicode 'Full Block'
 
 

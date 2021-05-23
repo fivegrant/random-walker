@@ -27,7 +27,7 @@ cipher cipherMapping = (`decode` cipherMapping)
 mutate :: (Char, Char) -> CipherMapping -> CipherMapping
 mutate pair cipherMapping 
                           | invalid = cipherMapping
-                          | otherwise =  Map.update fix2 (snd pair) (Map.update fix1 (fst pair) cipherMapping)
+                          | otherwise = Map.update fix1 (snd pair) (Map.update fix2 (fst pair) cipherMapping)
                             where fix1 _ = Just (decode (fst pair) cipherMapping)
                                   fix2 _ = Just (decode (snd pair) cipherMapping)
                                   invalid = (decode (fst pair) cipherMapping == missingCharacter) || 
