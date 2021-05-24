@@ -39,6 +39,7 @@ main = do
   flipGenerator <- newStdGen
   let coinFlips = take iteration (randomRs (False, True) flipGenerator)
 
+  writeFile "data/foo.txt" (show (getTransition transitionText))
   let transitions = stateTransitions (getTransition transitionText)
 
   let f = evolve mutantPairs transitions codedMessage newCipherMapping coinFlips
