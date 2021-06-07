@@ -46,8 +46,8 @@ pair corpus = map pairing [0..length corpus - 2]
 pairMatrix :: (Char, Char) -> TransitionMatrix
 pairMatrix letters = if x > 0 || y > 0 
                      then Matrix.setElem 1.0 (x, y) emptyTransitionMatrix 
-		     else emptyTransitionMatrix 
-		     where x = position (fst letters) + 1
+                     else emptyTransitionMatrix 
+                     where x = position (fst letters) + 1
                            y = position (snd letters) + 1
 
 occurrences :: String -> TransitionMatrix

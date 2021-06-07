@@ -32,4 +32,3 @@ mutate pair cipherMapping
                                   fix2 _ = Just (decode (snd pair) cipherMapping)
                                   invalid = (decode (fst pair) cipherMapping == missingCharacter) || 
                                             (decode (snd pair) cipherMapping == missingCharacter)
-
